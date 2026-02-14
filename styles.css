@@ -1,0 +1,205 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    color: #333;
+    overflow-x: hidden; /* Evitar scroll horizontal por corazones */
+}
+
+/* Fondo difuminado con imagen */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/Fondo\ \(2\).png'); /* Cambia esto por tu foto de fondo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efecto parallax sutil */
+    filter: blur(5px); /* Difuminado - ajusta el valor si quieres más o menos */
+    z-index: -1;
+}
+
+/* Overlay para que el texto sea legible */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Overlay semi-transparente */
+    z-index: -1;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    animation: fadeIn 2s ease-in;
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para legibilidad */
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    margin: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive; /* Fuente elegante */
+    font-size: 3em;
+    color: #ff6b6b;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+.date {
+    font-size: 1.5em;
+    color: #ffeaa7;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#clock {
+    font-size: 1.2em;
+    color: #ff6b6b;
+    margin-top: 15px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    animation: slideIn 2s ease-in 0.5s both;
+    z-index: 1;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    display: none;
+    transition: opacity 1s ease-in-out, transform 0.5s ease;
+    border-radius: 15px;
+}
+
+.gallery img.active {
+    display: block;
+    opacity: 1;
+}
+
+.gallery img:hover {
+    transform: scale(1.05); /* Efecto zoom al pasar el mouse */
+}
+
+.message {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.2em;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro para contraste */
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    animation: slideUp 2s ease-in 1s both;
+    margin: 20px;
+    z-index: 1;
+}
+
+/* Estilos para corazones flotando */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* No interferir con clics */
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b6b;
+    transform: rotate(45deg);
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b6b;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: -10px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    h1 { font-size: 2em; }
+    .gallery { width: 90%; }
+    header { padding: 30px 15px; }
+    .message { padding: 20px 15px; }
+    #clock { font-size: 1em; }
+    .heart { width: 15px; height: 15px; } /* Corazones más pequeños en móvil */
+    .heart::before, .heart::after { width: 15px; height: 15px; }
+    .heart::before { top: -7.5px; }
+    .heart::after { left: -7.5px; }
+}
